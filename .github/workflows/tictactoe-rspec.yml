@@ -1,26 +1,12 @@
 name: CI RSpec Tests
-
-on: push
-
+on: [push, pull_request]
 jobs:
-  build:
-    name: CI
+  test:
     runs-on: ubuntu-latest
-    env:
-      app-dir: ./
-
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-ruby@v1
-        with:
-          ruby-version: 2.6.3
-
-      - name: Run bundle install
-        working-directory: ${{env.app-dir}}
-        run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
-
-      - name: Build and test with rspec
-        working-directory: ${{env.app-dir}}
-        run: bundle exec rspec spec/
+    - uses: actions/checkout@v3
+    - uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '2.6.3'
+        bundler-cache: true
+    - run: bundle exec rspec spec/
