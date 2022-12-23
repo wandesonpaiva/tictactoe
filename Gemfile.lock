@@ -40,6 +40,7 @@ GEM
 
 PLATFORMS
   -darwin-20
+  x86_64-linux
 
 DEPENDENCIES
   rspec
